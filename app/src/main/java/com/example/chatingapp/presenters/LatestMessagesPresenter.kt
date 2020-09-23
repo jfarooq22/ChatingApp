@@ -33,6 +33,10 @@ class LatestMessagesPresenter(latestMessagesView: LatestMessagesContract.LatestM
         latestMessagesInteractor?.getLatestMessages()
     }
 
+    override fun listenforNotification(chatMessage: ChatMessage) {
+      latestMessagesView?.onNotificationReady(chatMessage)
+    }
+
     fun fetchCurrentUser() {
         val uid = FirebaseAuth.getInstance().uid
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")

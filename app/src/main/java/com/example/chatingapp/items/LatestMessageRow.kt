@@ -38,11 +38,7 @@ class LatestMessageRow(val chatMessage: ChatMessage): Item<ViewHolder>() {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("Not yet implemented")
             }
-
         })
-
-
-
     }
 
     override fun getLayout(): Int {

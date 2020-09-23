@@ -1,5 +1,9 @@
 package com.example.chatingapp.interactors
 
+import android.app.NotificationManager
+import android.os.Build
+import android.provider.Settings.Global.getString
+import com.example.chatingapp.R
 import com.example.chatingapp.contracts.LatestMessagesContract
 import com.example.chatingapp.items.LatestMessageRow
 import com.example.chatingapp.models.ChatMessage
@@ -29,12 +33,14 @@ class LatestMessagesInteractor(latestMessagesListenner: LatestMessagesContract.L
                 val chatMessage = p0.getValue(ChatMessage::class.java) ?: return
                 latestMessagesMap[p0.key!!] = chatMessage
                 refreshRecyclerViewMessages()
+//                sendNotification(chatMessage)
             }
 
             override fun onChildChanged(p0: DataSnapshot, p1: String?) {
                 val chatMessage = p0.getValue(ChatMessage::class.java) ?: return
                 latestMessagesMap[p0.key!!] = chatMessage
                 refreshRecyclerViewMessages()
+//                sendNotification(chatMessage)
             }
 
             override fun onChildRemoved(p0: DataSnapshot) {
@@ -58,5 +64,11 @@ class LatestMessagesInteractor(latestMessagesListenner: LatestMessagesContract.L
             adapter.add(LatestMessageRow(it))
         }
         latestMessagesListenner?.onLatestMessagesReady(adapter)
+    }
+
+
+    private fun sendNotification(chatMessage: ChatMessage){
+        latestMessagesListenner?.listenforNotification(chatMessage)
+
     }
 }
